@@ -11,8 +11,8 @@
       overflow-x: hidden;
       position: relative;
     }
-    h1, h2, h3 {
-      color: #ff1a75;
+    h1, h2, h3, p {
+      color: #b30059;
     }
     h1 { font-size: 48px; }
     h2 { font-size: 32px; }
@@ -44,13 +44,8 @@
     }
     .yes { background-color: #ff4d88; color: white; }
     .no { background-color: #cccccc; }
-    .page { display: none; margin-top: 40px; font-size: 22px; color: #b30059; position: relative; }
-    #loveLetterPage {
-      z-index: 9999;
-      background-color: rgba(255,255,255,0.85);
-      padding: 20px;
-      border-radius: 15px;
-    }
+    .page { display: none; margin-top: 40px; font-size: 22px; position: relative; z-index: 1; }
+    #loveLetterPage { z-index: 9999; /* no white background */ }
     .floating {
       position: absolute;
       pointer-events: none;
@@ -64,7 +59,6 @@
       position: absolute;
       width: 10px;
       height: 10px;
-      background-color: #ff1a75;
       opacity: 0.8;
       pointer-events: none;
       animation: confettiFall linear forwards;
@@ -80,7 +74,7 @@
 <h1>What are you doing on...</h1>
 
 <!-- Audio -->
-<audio id="bgMusic" src="pehlapyaar.mp3" loop autoplay></audio>
+<audio id="bgMusic" src="https://swathimenon.github.io/your-repo-name/pehlapyaar.mp3" loop autoplay></audio>
 
 <!-- Calendar -->
 <div id="calendar" class="calendar"></div>
@@ -110,7 +104,7 @@
 </div>
 
 <script>
-  // Calendar
+  // Build February 2026 calendar
   const calendarDiv = document.getElementById('calendar');
   const daysInMonth = 28;
   for(let day=1; day<=daysInMonth; day++){
@@ -140,7 +134,7 @@
     document.getElementById('valentineIntro').style.display='none';
     document.getElementById('loveLetterPage').style.display='block';
 
-    // Play music (in case browser blocked autoplay)
+    // Play music in case browser blocked autoplay
     const music = document.getElementById('bgMusic');
     music.volume = 0.3;
     music.play().catch(()=>{});
@@ -171,9 +165,12 @@
     setTimeout(spawnHearts,800);
   }
 
-  // Floating bunnies (uploaded images)
+  // Floating bunnies
   function spawnBunnies(){
-    const bunnies=['bunny1.png','bunny2.png'];
+    const bunnies=[
+      'https://swathimenon.github.io/your-repo-name/bunny1.png',
+      'https://swathimenon.github.io/your-repo-name/bunny2.png'
+    ];
     for(let i=0;i<5;i++){
       const ani=document.createElement('img');
       ani.src=bunnies[Math.floor(Math.random()*bunnies.length)];
@@ -202,7 +199,7 @@
     setTimeout(spawnConfetti,800);
   }
 
-  // Fallback for autoplay in browsers
+  // Fallback for autoplay
   document.body.addEventListener('click',function playMusic(){
     const music=document.getElementById('bgMusic');
     music.play().catch(()=>{});
