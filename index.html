@@ -9,10 +9,12 @@
       background-color: #ffe6f0;
       padding: 50px;
     }
-    h1 {
+    h1, h2, h3 {
       color: #ff1a75;
-      font-size: 48px;
     }
+    h1 { font-size: 48px; }
+    h2 { font-size: 32px; }
+    h3 { font-size: 28px; }
     .calendar {
       display: grid;
       grid-template-columns: repeat(7, 60px);
@@ -31,12 +33,6 @@
     .day:hover {
       background-color: #ff80bf;
     }
-    #valentinePage, #hintPage {
-      display: none;
-      margin-top: 40px;
-      font-size: 22px;
-      color: #b30059;
-    }
     button {
       font-size: 18px;
       padding: 10px 20px;
@@ -45,46 +41,54 @@
       margin-top: 20px;
       cursor: pointer;
     }
-    .yes {
-      background-color: #ff4d88;
-      color: white;
-    }
-    .no {
-      background-color: #cccccc;
-    }
+    .yes { background-color: #ff4d88; color: white; }
+    .no { background-color: #cccccc; }
+    .page { display: none; margin-top: 40px; font-size: 22px; color: #b30059; }
   </style>
 </head>
 <body>
 
-<h1>Are you free on February...</h1>
+<h1>What are you doing on...</h1>
 
+<!-- Calendar -->
 <div id="calendar" class="calendar"></div>
 
-<!-- Hint page if wrong date clicked -->
-<div id="hintPage">
-  <p>Hint: What's the date between the 13th and 15th? 😏</p>
-  <button onclick="resetCalendar()">Try Again</button>
+<!-- Hint page for wrong date -->
+<div id="hintPage" class="page">
+  <p>Wrong date!
+    Hint: What's the date between the 13th and 15th? 😏</p>
+  <button onclick="resetCalendar()">Retry?</button>
 </div>
 
-<!-- Valentine page if correct date clicked -->
-<div id="valentinePage">
-  <h2>Yay!!!! 💕</h2>
+<!-- Valentine page for Feb 14 -->
+<div id="valentinePage" class="page">
+  <h2>Hi Mon(DK)us! 💕</h2>
   <h3>Will you be my Valentine?</h3>
-  <button class="yes" onclick="alert('WOOOOO BOYFRIEND TIME ILYYYY 💖💖💖(dress nice pls I will be wearing red)')">Yes</button>
-  <button class="no" onclick="trickNo()">No</button>
+  <button class="yes" onclick="showYes()">Yes</button>
+  <button class="no" onclick="showNo()">No</button>
+</div>
 
-  <div id="loveLetter" style="display:none; margin-top:30px;">
-    <p>💌 To my Mon(DK)us,</p>
-    <p>I hope you liked this because it took me an embarrassingly long time to figure out. I love you so so much.</p>
-    <p>From our laughs to our late-night talks, you are my entire world. So…</p>
-    <h2>Will you be my Valentine? 💖</h2>
-  </div>
+<!-- Yes page (love letter) -->
+<div id="yesPage" class="page">
+  <h2>WOOOOO BOYFRIEND TIME I'M SO EXCITED💖💖💖</h2>
+  <p>(pls dress nice btw I will be wearing red)</p>
+  <p>💌 To my Mon(DK)us,</p>
+  <p>I hope you liked this because it took me an embarrassingly long time to figure out. I love you so so much!</p>
+  <p>From our laughs to our late-night talks, you are my entire world. So…</p>
+  <h2>Will you be my Valentine? 💖</h2>
+</div>
+
+<!-- No page -->
+<div id="noPage" class="page">
+  <h2>WOMP WOMP wrong answer 😌</h2>
+  <p>Try again!</p>
+  <button onclick="backToValentine()">Retry</button>
 </div>
 
 <script>
-  // Build calendar for February 2026
+  // Build February 2026 calendar
   const calendarDiv = document.getElementById('calendar');
-  const daysInMonth = 28; // February 2026
+  const daysInMonth = 28;
   for(let day = 1; day <= daysInMonth; day++){
     const dayDiv = document.createElement('div');
     dayDiv.textContent = day;
@@ -95,11 +99,9 @@
 
   function selectDate(day) {
     if(day === 14){
-      // Correct day: show Valentine page
       document.getElementById('calendar').style.display = 'none';
       document.getElementById('valentinePage').style.display = 'block';
     } else {
-      // Wrong day: show hint
       document.getElementById('calendar').style.display = 'none';
       document.getElementById('hintPage').style.display = 'block';
     }
@@ -110,18 +112,19 @@
     document.getElementById('calendar').style.display = 'grid';
   }
 
-  function showLetter() {
-    document.getElementById('loveLetter').style.display = 'block';
+  function showYes() {
+    document.getElementById('valentinePage').style.display = 'none';
+    document.getElementById('yesPage').style.display = 'block';
   }
 
-  function trickNo() {
-    alert("Nope 😏 That’s not the right answer. Try again!");
-    const btn = document.querySelector('.no');
-    const x = Math.floor(Math.random() * 200);
-    const y = Math.floor(Math.random() * 150);
-    btn.style.position = 'relative';
-    btn.style.left = x + 'px';
-    btn.style.top = y + 'px';
+  function showNo() {
+    document.getElementById('valentinePage').style.display = 'none';
+    document.getElementById('noPage').style.display = 'block';
+  }
+
+  function backToValentine() {
+    document.getElementById('noPage').style.display = 'none';
+    document.getElementById('valentinePage').style.display = 'block';
   }
 </script>
 
