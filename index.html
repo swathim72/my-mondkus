@@ -4,23 +4,25 @@
   <title>Valentine Puzzle 💖</title>
   <style>
     body {
-      font-family: Courier New, monospace;
+      font-family: Courier New, sans-serif;
       text-align: center;
       padding: 50px;
       overflow-x: hidden;
       position: relative;
+      /* Animated red gradient background */
       background: linear-gradient(135deg, #FFF8D9, #FF6B6B, #FF1E1E);
       background-size: 400% 400%;
       animation: gradientBG 15s ease infinite;
     }
+
     @keyframes gradientBG {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+
     h1, h2, h3, h4, p {
       color: #b30059;
-      margin: 10px 0;
     }
     h1 { font-size: 48px; }
     h2 { font-size: 32px; }
@@ -53,7 +55,13 @@
     }
     .yes { background-color: #FF1E1E; color: white; }
     .no { background-color: #cccccc; }
-    .page { display: none; margin-top: 40px; font-size: 22px; position: relative; z-index: 1; }
+    .page { 
+      display: none;
+      margin-top: 40px; 
+      font-size: 22px; 
+      position: relative; 
+      z-index: 1; 
+    }
     #loveLetterPage {
       z-index: 9999;
       position: relative;
@@ -67,18 +75,34 @@
     #loveLetterPage p, #loveLetterPage h2 {
       text-shadow: 1px 1px 3px #fff;
     }
-    .floating { position: absolute; pointer-events: none; animation: floatUp linear infinite; }
-    @keyframes floatUp { 0% { transform: translateY(0) scale(1); opacity:1; } 100% { transform: translateY(-800px) scale(1.5); opacity:0; } }
-    .confetti { position: absolute; width: 10px; height: 10px; opacity: 0.8; pointer-events: none; animation: confettiFall linear forwards; }
-    @keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); opacity:1; } 100% { transform: translateY(800px) rotate(360deg); opacity:0; } }
-    .typing { display: inline; white-space: pre-wrap; }
+    .floating {
+      position: absolute;
+      pointer-events: none;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity:1; }
+      100% { transform: translateY(-800px) scale(1.5); opacity:0; }
+    }
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      opacity: 0.8;
+      pointer-events: none;
+      animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall {
+      0% { transform: translateY(0) rotate(0deg); opacity:1; }
+      100% { transform: translateY(800px) rotate(360deg); opacity:0; }
+    }
   </style>
 </head>
 <body>
 
 <!-- Welcome page -->
 <div id="welcomePage" class="page" style="display:block;">
-  <h1 class="typing" data-text="mon(dk)us!! what are u doing here?"></h1>
+  <h1>mon(dk)us!! what are u doing here?</h1>
   <img src="cat.gif" alt="Cat gif" style="width:250px; margin-top:20px;">
   <div style="margin-top:30px;">
     <button onclick="goToCalendar()">you sent me this you idiot</button>
@@ -86,7 +110,7 @@
   </div>
 </div>
 
-<h1 id="calendarHeader" style="display:none;" class="typing" data-text="anyways, now that ur here...what are you doing on february..."></h1>
+<h1 id="calendarHeader" style="display:none;">anyways, now that ur here...what are you doing on february...</h1>
 
 <!-- Audio -->
 <audio id="bgMusic" src="pehlapyaar.mp3" loop autoplay></audio>
@@ -96,53 +120,30 @@
 
 <!-- Hint page -->
 <div id="hintPage" class="page">
-  <p class="typing" data-text="wrong date! hint: what's the date between the 13th and 15th? 😏"></p>
+  <p>wrong date! hint: what's the date between the 13th and 15th? 😏</p>
   <button onclick="resetCalendar()">try again</button>
 </div>
 
 <!-- Valentine intro -->
 <div id="valentineIntro" class="page">
-  <h2 class="typing" data-text="nothing??"></h2>
-  <h2 class="typing" data-text="so ur free on valentine's day...\ni'm free on valentine's day...maybe we should hang out..."></h2>
-  <h3 class="typing" data-text="Or maybe idk you could be my Valentine?🦝🐆"></h3>
+  <h2>so ur free on valentine's day...<br>i'm free on valentine's day...maybe we should hang out...</h2>
+  <h3>Or maybe idk you could be my Valentine?🦝🐆</h3>
   <button id="introYes" class="yes" onclick="showLoveLetter()">duh ofc YES!!</button>
   <button id="introNo" class="no" onclick="makeYesBigger()">nah i hate you</button>
 </div>
 
 <!-- Love letter page -->
 <div id="loveLetterPage" class="page">
-  <h2 class="typing" data-text="YAYYY BOYFRIEND TIME ILYYYY IM SO EXCITED😘😘😘"></h2>
-  <h4 class="typing" data-text="pls pls pls dress nice (i'm wearing red)"></h4>
-  <p class="typing" data-text="💌 my mon(dk)us,"></p>
-  <p class="typing" data-text="i hope you like this because it took an embarrassingly long time to make. i love you so so much!!!"></p>
-  <p class="typing" data-text="infinite hugs and kisses,"></p>
-  <h2 class="typing" data-text="ur hot asf gf that just learned how to code💕"></h2>
-  <h4 class="typing" data-text="(special thanks to chatgpt for the help)"></h4>
+  <h2>YAYYY BOYFRIEND TIME ILYYYY IM SO EXCITED😘😘😘</h2>
+  <h4>pls pls pls dress nice (i'm wearing red)</h4>
+  <p>💌 my mon(dk)us,</p>
+  <p>i hope you like this because it took an embarrassingly long time to make. i love you so so much!!!</p>
+  <p>infinite hugs and kisses,</p>
+  <h2>ur smart asf gf that just learned how to code💕</h2>
+  <h4>(special thanks to chatgpt for the help)</h4>
 </div>
 
 <script>
-  // Typing effect function
-  function typeText(element, speed=40) {
-    const text = element.getAttribute('data-text');
-    element.textContent = '';
-    let i = 0;
-    function typeChar() {
-      if (i < text.length) {
-        element.textContent += text.charAt(i);
-        i++;
-        setTimeout(typeChar, speed);
-      }
-    }
-    typeChar();
-  }
-
-  // Apply typing effect to visible page
-  function runTypingOnPage(pageId) {
-    const page = document.getElementById(pageId);
-    const elements = page.querySelectorAll('.typing');
-    elements.forEach(el => typeText(el));
-  }
-
   // Build February 2026 calendar
   const calendarDiv = document.getElementById('calendar');
   const daysInMonth = 28;
@@ -158,7 +159,6 @@
     document.getElementById('welcomePage').style.display='none';
     document.getElementById('calendarHeader').style.display='block';
     document.getElementById('calendar').style.display='grid';
-    runTypingOnPage('calendarHeader');
   }
 
   function selectDate(day){
@@ -166,12 +166,10 @@
       document.getElementById('calendar').style.display='none';
       document.getElementById('calendarHeader').style.display='none';
       document.getElementById('valentineIntro').style.display='block';
-      runTypingOnPage('valentineIntro');
     } else {
       document.getElementById('calendar').style.display='none';
       document.getElementById('calendarHeader').style.display='none';
       document.getElementById('hintPage').style.display='block';
-      runTypingOnPage('hintPage');
     }
   }
 
@@ -179,15 +177,13 @@
     document.getElementById('hintPage').style.display='none';
     document.getElementById('calendar').style.display='grid';
     document.getElementById('calendarHeader').style.display='block';
-    runTypingOnPage('calendarHeader');
   }
 
   function showLoveLetter(){
     document.getElementById('valentineIntro').style.display='none';
     document.getElementById('loveLetterPage').style.display='block';
-    runTypingOnPage('loveLetterPage');
 
-    // Play music
+    // Play music in case browser blocked autoplay
     const music = document.getElementById('bgMusic');
     music.volume = 0.3;
     music.play().catch(()=>{});
@@ -203,7 +199,7 @@
     yesButton.style.fontSize = (currentSize + 5) + "px";
   }
 
-  // Floating hearts (red)
+  // Floating hearts (red-themed)
   function spawnHearts(){
     for(let i=0;i<10;i++){
       const heart = document.createElement('div');
@@ -221,7 +217,10 @@
 
   // Floating bunnies
   function spawnBunnies(){
-    const bunnies=['bunny1.png','bunny2.png'];
+    const bunnies=[
+      'bunny1.png',
+      'bunny2.png'
+    ];
     for(let i=0;i<5;i++){
       const ani=document.createElement('img');
       ani.src=bunnies[Math.floor(Math.random()*bunnies.length)];
@@ -250,18 +249,13 @@
     setTimeout(spawnConfetti,800);
   }
 
-  // Autoplay fallback
+  // Fallback for autoplay
   document.body.addEventListener('click',function playMusic(){
     const music=document.getElementById('bgMusic');
     music.play().catch(()=>{});
     document.body.removeEventListener('click',playMusic);
   });
-
-  // Run typing on welcome page initially
-  runTypingOnPage('welcomePage');
-
 </script>
 
 </body>
 </html>
-
