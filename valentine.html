@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Be My Valentine?</title>
+  <style>
+    body {
+      background-color: #ffe6f0;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+    h1 {
+      font-size: 50px;
+      color: #ff4d88;
+    }
+    h2 {
+      color: #ff1a75;
+    }
+    button {
+      font-size: 20px;
+      padding: 15px 25px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .yes {
+      background-color: #ff4d88;
+      color: white;
+    }
+    .no {
+      background-color: #cccccc;
+    }
+    #loveLetter {
+      margin-top: 30px;
+      font-size: 22px;
+      color: #b30059;
+      display: none;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hey you 💕</h1>
+  <h2>Will you be my Valentine?</h2>
+
+  <button class="yes" onclick="showLetter()">Yes</button>
+  <button class="no" onclick="trickNo()">No</button>
+
+  <div id="loveLetter">
+    <p>💌 My dearest love,</p>
+    <p>You make every day brighter, every moment sweeter. I love you in ways words can barely capture, but I hope this little website shows just a fraction of it.</p>
+    <p>From our laughs to our late-night talks, you are my entire world. So…</p>
+    <h2>Will you be my Valentine? 💖</h2>
+  </div>
+
+  <script>
+    function showLetter() {
+      document.getElementById('loveLetter').style.display = 'block';
+    }
+
+    function trickNo() {
+      alert("Nope 😏 That’s not the right answer. Try again!");
+      // Optional: make the No button move randomly
+      const btn = document.querySelector('.no');
+      const x = Math.floor(Math.random() * 300);
+      const y = Math.floor(Math.random() * 200);
+      btn.style.position = 'relative';
+      btn.style.left = x + 'px';
+      btn.style.top = y + 'px';
+    }
+  </script>
+</body>
+</html>
