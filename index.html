@@ -89,10 +89,20 @@
 </head>
 <body>
 
-<h1>What are you doing on February...</h1>
+<!-- Welcome page -->
+<div id="welcomePage" class="page" style="display:block;">
+  <h1>Mon(DK)us!! What are you doing here?</h1>
+  <img src="cat.gif" alt="Cat gif" style="width:250px; margin-top:20px;">
+  <div style="margin-top:30px;">
+    <button onclick="goToCalendar()">you sent me this you idiot</button>
+    <button onclick="goToCalendar()">my spidey senses brought me here</button>
+  </div>
+</div>
+
+<h1 id="calendarHeader" style="display:none;">What are you doing on February...</h1>
 
 <!-- Audio -->
-<audio id="bgMusic" src="https://swathim72.github.io/my-mondkus/pehlapyaar.mp3" loop autoplay></audio>
+<audio id="bgMusic" src="pehlapyaar.mp3" loop autoplay></audio>
 
 <!-- Calendar -->
 <div id="calendar" class="calendar"></div>
@@ -133,12 +143,20 @@
     calendarDiv.appendChild(dayDiv);
   }
 
+  function goToCalendar(){
+    document.getElementById('welcomePage').style.display='none';
+    document.getElementById('calendarHeader').style.display='block';
+    document.getElementById('calendar').style.display='grid';
+  }
+
   function selectDate(day){
     if(day===14){
       document.getElementById('calendar').style.display='none';
+      document.getElementById('calendarHeader').style.display='none';
       document.getElementById('valentineIntro').style.display='block';
     } else {
       document.getElementById('calendar').style.display='none';
+      document.getElementById('calendarHeader').style.display='none';
       document.getElementById('hintPage').style.display='block';
     }
   }
@@ -146,6 +164,7 @@
   function resetCalendar(){
     document.getElementById('hintPage').style.display='none';
     document.getElementById('calendar').style.display='grid';
+    document.getElementById('calendarHeader').style.display='block';
   }
 
   function showLoveLetter(){
@@ -186,8 +205,8 @@
   // Floating bunnies
   function spawnBunnies(){
     const bunnies=[
-      'https://swathim72.github.io/my-mondkus/bunny1.png',
-      'https://swathim72.github.io/my-mondkus/bunny2.png'
+      'bunny1.png',
+      'bunny2.png'
     ];
     for(let i=0;i<5;i++){
       const ani=document.createElement('img');
