@@ -6,11 +6,21 @@
     body {
       font-family: Courier New, sans-serif;
       text-align: center;
-      background-color: #FFF8D9;
       padding: 50px;
       overflow-x: hidden;
       position: relative;
+      /* Animated red gradient background */
+      background: linear-gradient(135deg, #FFF8D9, #FF6B6B, #FF1E1E);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
     }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     h1, h2, h3, h4, p {
       color: #b30059;
     }
@@ -26,14 +36,14 @@
       margin-top: 20px;
     }
     .day {
-      background-color: #ffb3d9;
+      background-color: #FF8C8C;
       padding: 15px;
       border-radius: 10px;
       cursor: pointer;
       font-weight: bold;
       color: #800040;
     }
-    .day:hover { background-color: #ff80bf; }
+    .day:hover { background-color: #FF4D4D; }
     button {
       font-size: 18px;
       padding: 10px 20px;
@@ -43,10 +53,10 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
-    .yes { background-color: #ff4d88; color: white; }
+    .yes { background-color: #FF1E1E; color: white; }
     .no { background-color: #cccccc; }
     .page { 
-      display: none; /* all pages start hidden */
+      display: none;
       margin-top: 40px; 
       font-size: 22px; 
       position: relative; 
@@ -126,12 +136,11 @@
 <div id="loveLetterPage" class="page">
   <h2>YAYYY BOYFRIEND TIME ILYYYY IM SO EXCITED😘😘😘</h2>
   <h4>pls pls pls dress nice (i'm wearing red)</h4>
-  <p>💌</p>
-  <p>my mon(dk)us,</p>
+  <p>💌 my mon(dk)us,</p>
   <p>i hope you like this because it took an embarrassingly long time to make. i love you so so much!!!</p>
   <p>infinite hugs and kisses,</p>
-  <h4>ur smart asf gf that just learned how to code💕</h4>
-  <p>(special thanks to chatgpt for the help)</p>
+  <h2>ur smart asf gf that just learned how to code💕</h2>
+  <h4>(special thanks to chatgpt for the help)</h4>
 </div>
 
 <script>
@@ -190,7 +199,7 @@
     yesButton.style.fontSize = (currentSize + 5) + "px";
   }
 
-  // Floating hearts
+  // Floating hearts (red-themed)
   function spawnHearts(){
     for(let i=0;i<10;i++){
       const heart = document.createElement('div');
@@ -198,6 +207,7 @@
       heart.style.left=Math.random()*window.innerWidth+'px';
       heart.style.fontSize=20+Math.random()*20+'px';
       heart.textContent='💖';
+      heart.style.color='#FF1E1E';
       heart.style.animationDuration=3+Math.random()*3+'s';
       document.body.appendChild(heart);
       setTimeout(()=>heart.remove(),5000);
@@ -231,7 +241,7 @@
       const c=document.createElement('div');
       c.className='confetti';
       c.style.left=Math.random()*window.innerWidth+'px';
-      c.style.backgroundColor=`hsl(${Math.random()*360},100%,70%)`;
+      c.style.backgroundColor=`hsl(${Math.random()*10},100%,70%)`; // red hues
       c.style.animationDuration=2+Math.random()*2+'s';
       document.body.appendChild(c);
       setTimeout(()=>c.remove(),4000);
