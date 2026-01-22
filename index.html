@@ -44,13 +44,18 @@
     }
     .yes { background-color: #ff4d88; color: white; }
     .no { background-color: #cccccc; }
-    .page { display: none; margin-top: 40px; font-size: 22px; position: relative; z-index: 1; }
+    .page { 
+      display: none; /* all pages start hidden */
+      margin-top: 40px; 
+      font-size: 22px; 
+      position: relative; 
+      z-index: 1; 
+    }
     #loveLetterPage {
       z-index: 9999;
       position: relative;
       background: none;
       padding: 0;
-      display: block;
       width: auto;
       max-width: 90%;
       margin: 0 auto;
@@ -112,4 +117,113 @@
   <p>Here's my love letter for you:</p>
   <p>💌 My dearest love,</p>
   <p>You make every day brighter, every moment sweeter. I love you in ways words can barely capture, but I hope this little website shows just a fraction of it.</p>
-  <p>From our laughs to our late-night talks, you are my entire worl
+  <p>From our laughs to our late-night talks, you are my entire world. So…</p>
+  <h2>Will you be my Valentine? 💖</h2>
+</div>
+
+<script>
+  // Build February 2026 calendar
+  const calendarDiv = document.getElementById('calendar');
+  const daysInMonth = 28;
+  for(let day=1; day<=daysInMonth; day++){
+    const dayDiv = document.createElement('div');
+    dayDiv.textContent = day;
+    dayDiv.className = 'day';
+    dayDiv.onclick = ()=>selectDate(day);
+    calendarDiv.appendChild(dayDiv);
+  }
+
+  function selectDate(day){
+    if(day===14){
+      document.getElementById('calendar').style.display='none';
+      document.getElementById('valentineIntro').style.display='block';
+    } else {
+      document.getElementById('calendar').style.display='none';
+      document.getElementById('hintPage').style.display='block';
+    }
+  }
+
+  function resetCalendar(){
+    document.getElementById('hintPage').style.display='none';
+    document.getElementById('calendar').style.display='grid';
+  }
+
+  function showLoveLetter(){
+    document.getElementById('valentineIntro').style.display='none';
+    document.getElementById('loveLetterPage').style.display='block';
+
+    // Play music in case browser blocked autoplay
+    const music = document.getElementById('bgMusic');
+    music.volume = 0.3;
+    music.play().catch(()=>{});
+
+    spawnHearts();
+    spawnBunnies();
+    spawnConfetti();
+  }
+
+  function makeYesBigger(){
+    const yesButton = document.getElementById('introYes');
+    let currentSize = parseInt(window.getComputedStyle(yesButton).fontSize);
+    yesButton.style.fontSize = (currentSize + 5) + "px";
+  }
+
+  // Floating hearts
+  function spawnHearts(){
+    for(let i=0;i<10;i++){
+      const heart = document.createElement('div');
+      heart.className='floating';
+      heart.style.left=Math.random()*window.innerWidth+'px';
+      heart.style.fontSize=20+Math.random()*20+'px';
+      heart.textContent='💖';
+      heart.style.animationDuration=3+Math.random()*3+'s';
+      document.body.appendChild(heart);
+      setTimeout(()=>heart.remove(),5000);
+    }
+    setTimeout(spawnHearts,800);
+  }
+
+  // Floating bunnies
+  function spawnBunnies(){
+    const bunnies=[
+      'https://swathimenon.github.io/your-repo-name/bunny1.png',
+      'https://swathimenon.github.io/your-repo-name/bunny2.png'
+    ];
+    for(let i=0;i<5;i++){
+      const ani=document.createElement('img');
+      ani.src=bunnies[Math.floor(Math.random()*bunnies.length)];
+      ani.className='floating';
+      ani.style.left=Math.random()*window.innerWidth+'px';
+      ani.style.width=50+Math.random()*30+'px';
+      ani.style.height='auto';
+      ani.style.animationDuration=4+Math.random()*4+'s';
+      document.body.appendChild(ani);
+      setTimeout(()=>ani.remove(),6000);
+    }
+    setTimeout(spawnBunnies,1200);
+  }
+
+  // Confetti
+  function spawnConfetti(){
+    for(let i=0;i<15;i++){
+      const c=document.createElement('div');
+      c.className='confetti';
+      c.style.left=Math.random()*window.innerWidth+'px';
+      c.style.backgroundColor=`hsl(${Math.random()*360},100%,70%)`;
+      c.style.animationDuration=2+Math.random()*2+'s';
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(),4000);
+    }
+    setTimeout(spawnConfetti,800);
+  }
+
+  // Fallback for autoplay
+  document.body.addEventListener('click',function playMusic(){
+    const music=document.getElementById('bgMusic');
+    music.play().catch(()=>{});
+    document.body.removeEventListener('click',playMusic);
+  });
+</script>
+
+</body>
+</html>
