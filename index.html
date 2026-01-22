@@ -11,12 +11,13 @@
       overflow-x: hidden;
       position: relative;
     }
-    h1, h2, h3, p {
+    h1, h2, h3, h4, p {
       color: #b30059;
     }
     h1 { font-size: 48px; }
     h2 { font-size: 32px; }
     h3 { font-size: 28px; }
+    h4 { font-size: 22px; }
     .calendar {
       display: grid;
       grid-template-columns: repeat(7, 60px);
@@ -91,7 +92,7 @@
 
 <!-- Welcome page -->
 <div id="welcomePage" class="page" style="display:block;">
-  <h1>Mon(DK)us!! What are you doing here?</h1>
+  <h1>mon(dk)us!! what are u doing here?</h1>
   <img src="cat.gif" alt="Cat gif" style="width:250px; margin-top:20px;">
   <div style="margin-top:30px;">
     <button onclick="goToCalendar()">you sent me this you idiot</button>
@@ -99,7 +100,7 @@
   </div>
 </div>
 
-<h1 id="calendarHeader" style="display:none;">What are you doing on February...</h1>
+<h1 id="calendarHeader" style="display:none;">anyways, now that ur here...what are you doing on february...</h1>
 
 <!-- Audio -->
 <audio id="bgMusic" src="pehlapyaar.mp3" loop autoplay></audio>
@@ -109,26 +110,27 @@
 
 <!-- Hint page -->
 <div id="hintPage" class="page">
-  <p>Wrong date! Hint: What's the date between the 13th and 15th? 😏</p>
-  <button onclick="resetCalendar()">Retry</button>
+  <p>wrong date! hint: what's the date between the 13th and 15th? 😏</p>
+  <button onclick="resetCalendar()">try again</button>
 </div>
 
 <!-- Valentine intro -->
 <div id="valentineIntro" class="page">
-  <h2>So you're free on Valentine's Day...<br>I'm free on Valentine's Day...maybe we should hang out...</h2>
-  <h3>Or maybe, I don't know, you could be my Valentine?</h3>
+  <h2>so ur free on valentine's day...<br>i'm free on valentine's day...maybe we should hang out...</h2>
+  <h3>Or maybe idk you could be my Valentine?🦝🐆</h3>
   <button id="introYes" class="yes" onclick="showLoveLetter()">duh ofc YES!!</button>
-  <button id="introNo" class="no" onclick="makeYesBigger()">nah I hate you</button>
+  <button id="introNo" class="no" onclick="makeYesBigger()">nah i hate you</button>
 </div>
 
 <!-- Love letter page -->
 <div id="loveLetterPage" class="page">
   <h2>YAYYY BOYFRIEND TIME ILYYYY IM SO EXCITED😘😘😘</h2>
-  <p>pls pls pls dress nice (I'm wearing red)</p>
-  <p>💌 My Mon(DK)us,</p>
-  <p>I hope you like this because it took an embarrassingly long time to make. I love you so so much!!!.</p>
-  <p>Infinite hugs and kisses,</p>
-  <h2>Racc💕</h2>
+  <h4>pls pls pls dress nice (i'm wearing red)</h4>
+  <p>💌 my mon(dk)us,</p>
+  <p>i hope you like this because it took an embarrassingly long time to make. i love you so so much!!!</p>
+  <p>infinite hugs and kisses,</p>
+  <h2>ur smart asf gf that just learned how to code💕</h2>
+  <h4>(special thanks to chatgpt for the help)</h4>
 </div>
 
 <script>
