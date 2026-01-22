@@ -45,7 +45,21 @@
     .yes { background-color: #ff4d88; color: white; }
     .no { background-color: #cccccc; }
     .page { display: none; margin-top: 40px; font-size: 22px; position: relative; z-index: 1; }
-    #loveLetterPage { z-index: 9999; /* no white background */ }
+    /* Love letter: no white box */
+    #loveLetterPage {
+      z-index: 9999;
+      position: relative;
+      background: none;
+      padding: 0;
+      display: block;
+      width: auto;
+      max-width: 90%;
+      margin: 0 auto;
+      text-align: center;
+    }
+    #loveLetterPage p, #loveLetterPage h2 {
+      text-shadow: 1px 1px 3px #fff;
+    }
     .floating {
       position: absolute;
       pointer-events: none;
