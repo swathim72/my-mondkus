@@ -8,6 +8,7 @@
       text-align: center;
       background-color: #ffe6f0;
       padding: 50px;
+      overflow-x: hidden;
     }
     h1, h2, h3 {
       color: #ff1a75;
@@ -40,10 +41,21 @@
       border: none;
       margin-top: 20px;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
     .yes { background-color: #ff4d88; color: white; }
     .no { background-color: #cccccc; }
-    .page { display: none; margin-top: 40px; font-size: 22px; color: #b30059; }
+    .page { display: none; margin-top: 40px; font-size: 22px; color: #b30059; position: relative; }
+    .floating {
+      position: absolute;
+      font-size: 30px;
+      pointer-events: none;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity:1; }
+      100% { transform: translateY(-800px) scale(1.5); opacity:0; }
+    }
   </style>
 </head>
 <body>
@@ -53,35 +65,28 @@
 <!-- Calendar -->
 <div id="calendar" class="calendar"></div>
 
-<!-- Hint page for wrong date -->
+<!-- Hint page -->
 <div id="hintPage" class="page">
-  <p>Wrong date! Hint: What's the date between the 13th and 15th? 😏</p>
-  <button onclick="resetCalendar()">Retry?</button>
+  <p>Hint: What's the date between the 13th and 15th? 😏</p>
+  <button onclick="resetCalendar()">Try Again</button>
 </div>
 
-<!-- Valentine page for Feb 14 -->
-<div id="valentinePage" class="page">
-  <h2>Hi Mon(DK)us! 💕</h2>
-  <h3>Will you be my Valentine?</h3>
-  <button class="yes" onclick="showYes()">Yes</button>
-  <button class="no" onclick="showNo()">No</button>
+<!-- Valentine intro -->
+<div id="valentineIntro" class="page">
+  <h2>So you're free on Valentine's Day...<br>I'm free on Valentine's Day...maybe we should hang out...</h2>
+  <h3>Or maybe, I don't know, be my Valentine?</h3>
+  <button id="introYes" class="yes" onclick="showLoveLetter()">YES!!</button>
+  <button id="introNo" class="no" onclick="makeYesBigger()">nah I hate you</button>
 </div>
 
-<!-- Yes page (love letter) -->
-<div id="yesPage" class="page">
-  <h2>WOOOOO BOYFRIEND TIME I'M SO EXCITED💖💖💖</h2>
-  <p>(pls dress nice btw I will be wearing red)</p>
-  <p>💌 To my Mon(DK)us,</p>
-  <p>I hope you liked this because it took me an embarrassingly long time to figure out. I love you so so much!</p>
+<!-- Love letter page -->
+<div id="loveLetterPage" class="page">
+  <h2>YAY!!! 💖💖💖</h2>
+  <p>Here's my love letter for you:</p>
+  <p>💌 My dearest love,</p>
+  <p>You make every day brighter, every moment sweeter. I love you in ways words can barely capture, but I hope this little website shows just a fraction of it.</p>
   <p>From our laughs to our late-night talks, you are my entire world. So…</p>
   <h2>Will you be my Valentine? 💖</h2>
-</div>
-
-<!-- No page -->
-<div id="noPage" class="page">
-  <h2>WOMP WOMP wrong answer 😌</h2>
-  <p>Try again!</p>
-  <button onclick="backToValentine()">Retry</button>
 </div>
 
 <script>
@@ -99,7 +104,7 @@
   function selectDate(day) {
     if(day === 14){
       document.getElementById('calendar').style.display = 'none';
-      document.getElementById('valentinePage').style.display = 'block';
+      document.getElementById('valentineIntro').style.display = 'block';
     } else {
       document.getElementById('calendar').style.display = 'none';
       document.getElementById('hintPage').style.display = 'block';
@@ -111,20 +116,52 @@
     document.getElementById('calendar').style.display = 'grid';
   }
 
-  function showYes() {
-    document.getElementById('valentinePage').style.display = 'none';
-    document.getElementById('yesPage').style.display = 'block';
+  // Show love letter and start animation
+  function showLoveLetter() {
+    document.getElementById('valentineIntro').style.display = 'none';
+    document.getElementById('loveLetterPage').style.display = 'block';
+    startFloatingHearts();
+    spawnAnimals();
   }
 
-  function showNo() {
-    document.getElementById('valentinePage').style.display = 'none';
-    document.getElementById('noPage').style.display = 'block';
+  function makeYesBigger() {
+    const yesButton = document.getElementById('introYes');
+    let currentSize = parseInt(window.getComputedStyle(yesButton).fontSize);
+    yesButton.style.fontSize = (currentSize + 5) + "px";
   }
 
-  function backToValentine() {
-    document.getElementById('noPage').style.display = 'none';
-    document.getElementById('valentinePage').style.display = 'block';
+  // Floating hearts animation
+  function startFloatingHearts() {
+    for(let i=0;i<30;i++){
+      const heart = document.createElement('div');
+      heart.className = 'floating';
+      heart.style.left = Math.random()*window.innerWidth + "px";
+      heart.style.fontSize = 20 + Math.random()*30 + "px";
+      heart.textContent = '💖';
+      heart.style.animationDuration = 3 + Math.random()*3 + "s";
+      document.body.appendChild(heart);
+      setTimeout(()=>heart.remove(), 6000);
+    }
+    // Repeat every 500ms for continuous hearts
+    setTimeout(startFloatingHearts, 500);
   }
+
+  // Spawn bunnies and cats
+  function spawnAnimals() {
+    const animals = ['🐰','🐇','😺','😻'];
+    for(let i=0;i<15;i++){
+      const ani = document.createElement('div');
+      ani.className = 'floating';
+      ani.style.left = Math.random()*window.innerWidth + "px";
+      ani.style.fontSize = 30 + Math.random()*30 + "px";
+      ani.textContent = animals[Math.floor(Math.random()*animals.length)];
+      ani.style.animationDuration = 4 + Math.random()*4 + "s";
+      document.body.appendChild(ani);
+      setTimeout(()=>ani.remove(), 7000);
+    }
+    setTimeout(spawnAnimals, 1000);
+  }
+
 </script>
 
 </body>
