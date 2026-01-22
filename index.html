@@ -9,6 +9,7 @@
       background-color: #ffe6f0;
       padding: 50px;
       overflow-x: hidden;
+      position: relative;
     }
     h1, h2, h3 {
       color: #ff1a75;
@@ -31,9 +32,7 @@
       font-weight: bold;
       color: #800040;
     }
-    .day:hover {
-      background-color: #ff80bf;
-    }
+    .day:hover { background-color: #ff80bf; }
     button {
       font-size: 18px;
       padding: 10px 20px;
@@ -46,9 +45,14 @@
     .yes { background-color: #ff4d88; color: white; }
     .no { background-color: #cccccc; }
     .page { display: none; margin-top: 40px; font-size: 22px; color: #b30059; position: relative; }
+    #loveLetterPage {
+      z-index: 9999;
+      background-color: rgba(255,255,255,0.85);
+      padding: 20px;
+      border-radius: 15px;
+    }
     .floating {
       position: absolute;
-      font-size: 30px;
       pointer-events: none;
       animation: floatUp linear infinite;
     }
@@ -56,11 +60,27 @@
       0% { transform: translateY(0) scale(1); opacity:1; }
       100% { transform: translateY(-800px) scale(1.5); opacity:0; }
     }
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #ff1a75;
+      opacity: 0.8;
+      pointer-events: none;
+      animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall {
+      0% { transform: translateY(0) rotate(0deg); opacity:1; }
+      100% { transform: translateY(800px) rotate(360deg); opacity:0; }
+    }
   </style>
 </head>
 <body>
 
 <h1>What are you doing on...</h1>
+
+<!-- Audio -->
+<audio id="bgMusic" src="pehlapyaar.mp3" loop autoplay></audio>
 
 <!-- Calendar -->
 <div id="calendar" class="calendar"></div>
@@ -90,78 +110,104 @@
 </div>
 
 <script>
-  // Build February 2026 calendar
+  // Calendar
   const calendarDiv = document.getElementById('calendar');
   const daysInMonth = 28;
-  for(let day = 1; day <= daysInMonth; day++){
+  for(let day=1; day<=daysInMonth; day++){
     const dayDiv = document.createElement('div');
     dayDiv.textContent = day;
     dayDiv.className = 'day';
-    dayDiv.onclick = () => selectDate(day);
+    dayDiv.onclick = ()=>selectDate(day);
     calendarDiv.appendChild(dayDiv);
   }
 
-  function selectDate(day) {
-    if(day === 14){
-      document.getElementById('calendar').style.display = 'none';
-      document.getElementById('valentineIntro').style.display = 'block';
+  function selectDate(day){
+    if(day===14){
+      document.getElementById('calendar').style.display='none';
+      document.getElementById('valentineIntro').style.display='block';
     } else {
-      document.getElementById('calendar').style.display = 'none';
-      document.getElementById('hintPage').style.display = 'block';
+      document.getElementById('calendar').style.display='none';
+      document.getElementById('hintPage').style.display='block';
     }
   }
 
-  function resetCalendar() {
-    document.getElementById('hintPage').style.display = 'none';
-    document.getElementById('calendar').style.display = 'grid';
+  function resetCalendar(){
+    document.getElementById('hintPage').style.display='none';
+    document.getElementById('calendar').style.display='grid';
   }
 
-  // Show love letter and start animation
-  function showLoveLetter() {
-    document.getElementById('valentineIntro').style.display = 'none';
-    document.getElementById('loveLetterPage').style.display = 'block';
-    startFloatingHearts();
-    spawnAnimals();
+  function showLoveLetter(){
+    document.getElementById('valentineIntro').style.display='none';
+    document.getElementById('loveLetterPage').style.display='block';
+
+    // Play music (in case browser blocked autoplay)
+    const music = document.getElementById('bgMusic');
+    music.volume = 0.3;
+    music.play().catch(()=>{});
+
+    spawnHearts();
+    spawnBunnies();
+    spawnConfetti();
   }
 
-  function makeYesBigger() {
+  function makeYesBigger(){
     const yesButton = document.getElementById('introYes');
     let currentSize = parseInt(window.getComputedStyle(yesButton).fontSize);
     yesButton.style.fontSize = (currentSize + 5) + "px";
   }
 
-  // Floating hearts animation
-  function startFloatingHearts() {
-    for(let i=0;i<30;i++){
+  // Floating hearts
+  function spawnHearts(){
+    for(let i=0;i<10;i++){
       const heart = document.createElement('div');
-      heart.className = 'floating';
-      heart.style.left = Math.random()*window.innerWidth + "px";
-      heart.style.fontSize = 20 + Math.random()*30 + "px";
-      heart.textContent = '💖';
-      heart.style.animationDuration = 3 + Math.random()*3 + "s";
+      heart.className='floating';
+      heart.style.left=Math.random()*window.innerWidth+'px';
+      heart.style.fontSize=20+Math.random()*20+'px';
+      heart.textContent='💖';
+      heart.style.animationDuration=3+Math.random()*3+'s';
       document.body.appendChild(heart);
-      setTimeout(()=>heart.remove(), 6000);
+      setTimeout(()=>heart.remove(),5000);
     }
-    // Repeat every 500ms for continuous hearts
-    setTimeout(startFloatingHearts, 500);
+    setTimeout(spawnHearts,800);
   }
 
-  // Spawn bunnies and cats
-  function spawnAnimals() {
-    const animals = ['🐰','🐇','😺','😻'];
-    for(let i=0;i<15;i++){
-      const ani = document.createElement('div');
-      ani.className = 'floating';
-      ani.style.left = Math.random()*window.innerWidth + "px";
-      ani.style.fontSize = 30 + Math.random()*30 + "px";
-      ani.textContent = animals[Math.floor(Math.random()*animals.length)];
-      ani.style.animationDuration = 4 + Math.random()*4 + "s";
+  // Floating bunnies (uploaded images)
+  function spawnBunnies(){
+    const bunnies=['bunny1.png','bunny2.png'];
+    for(let i=0;i<5;i++){
+      const ani=document.createElement('img');
+      ani.src=bunnies[Math.floor(Math.random()*bunnies.length)];
+      ani.className='floating';
+      ani.style.left=Math.random()*window.innerWidth+'px';
+      ani.style.width=50+Math.random()*30+'px';
+      ani.style.height='auto';
+      ani.style.animationDuration=4+Math.random()*4+'s';
       document.body.appendChild(ani);
-      setTimeout(()=>ani.remove(), 7000);
+      setTimeout(()=>ani.remove(),6000);
     }
-    setTimeout(spawnAnimals, 1000);
+    setTimeout(spawnBunnies,1200);
   }
 
+  // Confetti
+  function spawnConfetti(){
+    for(let i=0;i<15;i++){
+      const c=document.createElement('div');
+      c.className='confetti';
+      c.style.left=Math.random()*window.innerWidth+'px';
+      c.style.backgroundColor=`hsl(${Math.random()*360},100%,70%)`;
+      c.style.animationDuration=2+Math.random()*2+'s';
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(),4000);
+    }
+    setTimeout(spawnConfetti,800);
+  }
+
+  // Fallback for autoplay in browsers
+  document.body.addEventListener('click',function playMusic(){
+    const music=document.getElementById('bgMusic');
+    music.play().catch(()=>{});
+    document.body.removeEventListener('click',playMusic);
+  });
 </script>
 
 </body>
