@@ -304,6 +304,16 @@
   }
 
   document.addEventListener("click", e => sparkle(e.pageX, e.pageY));
+  // Start music on first user interaction (browser-safe)
+function startMusic() {
+  const music = document.getElementById("bgMusic");
+  music.volume = 0.3;
+  music.play().catch(() => {});
+  document.removeEventListener("click", startMusic);
+}
+
+document.addEventListener("click", startMusic);
+
 </script>
 
 </body>
