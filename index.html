@@ -219,6 +219,9 @@
   <button onclick="complimentRoulette()">if you haven't been rizzed up enough yet</button>
     <br>
 <button onclick="fakeError()">do NOT press this</button>
+    <br>
+<button onclick="openTerms()">terms & conditions(must read!)</button>
+
 
 
 </div>
@@ -485,6 +488,48 @@ function fakeError() {
       resume boyfriend duties
     </button>
   `;
+  document.body.appendChild(overlay);
+}
+function openTerms() {
+  const overlay = document.createElement("div");
+  overlay.style.position = "fixed";
+  overlay.style.inset = "0";
+  overlay.style.background = "rgba(255, 30, 30, 0.95)";
+  overlay.style.color = "white";
+  overlay.style.display = "flex";
+  overlay.style.flexDirection = "column";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = "center";
+  overlay.style.padding = "30px";
+  overlay.style.zIndex = "9999";
+  overlay.style.textAlign = "left";
+
+  overlay.innerHTML = `
+    <h2 style="text-align:center;">💖 TERMS & CONDITIONS 💖</h2>
+    <ul style="max-width:500px; font-size:18px; line-height:1.6;">
+      <li>mandatory cuddles (non-negotiable)</li>
+      <li>you must let me be passenger princess</li>
+      <li>random kisses may occur</li>
+      <li>required to dance with me</li>
+      <li>spontaneous I love you messages encouraged</li>
+      <li>nightly calls strongly encouraged</li>
+      <li>you agree that i am always cute</li>
+    </ul>
+    <p style="margin-top:20px; text-align:center;">
+      by proceeding, you accept these terms forever 😌
+    </p>
+    <button onclick="this.parentElement.remove()" style="
+      margin-top:20px;
+      padding:12px 24px;
+      font-size:18px;
+      border-radius:10px;
+      border:none;
+      cursor:pointer;
+    ">
+      i accept 💕
+    </button>
+  `;
+
   document.body.appendChild(overlay);
 }
 
