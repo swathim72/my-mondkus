@@ -189,8 +189,10 @@
   <h2>ur not doing anything? so ur free on valentine's day...<br>and i'm free on valentine's day...maybe we should hang out(as friends)...</h2>
   <h3>or maybe you could be my valentine?</h3>
   <button id="introYes" class="yes" onclick="showLoveLetter()">duh ofc YES!!</button>
-  <button id="introNo" class="no" onclick="makeYesBigger()">nah i hate you</button>
+  <button id="noBtn" onclick="handleNoClick()">nah I hate you</button>
   <button id="mysteryButton" class="no" onclick="showMysteryPage()">nooo don't click me🙈</button>
+  <p id="noCounterText" style="margin-top: 20px; font-size: 16px; opacity: 0.8;"></p>
+
 </div>
 
 <!-- MYSTERY PAGE -->
@@ -390,6 +392,35 @@ welcomeButtons.forEach(btn => {
     });
   });
 });
+<script>
+  let noClickCount = 0;
+
+  function handleNoClick() {
+    noClickCount++;
+
+    const text = document.getElementById("noCounterText");
+
+    const messages = [
+      "ok rude",
+      "again???",
+      "you’re enjoying this a little too much",
+      "this button is not the point",
+      "whyyyyy",
+      "damn okay ig",
+      `you clicked this ${noClickCount} times. reflect.`
+    ];
+
+    text.textContent =
+      messages[Math.min(noClickCount - 1, messages.length - 1)];
+
+    // also make YES bigger (your existing chaos)
+    const yesBtn = document.getElementById("yesBtn");
+    const currentSize = parseFloat(
+      window.getComputedStyle(yesBtn).fontSize
+    );
+    yesBtn.style.fontSize = currentSize + 6 + "px";
+  }
+</script>
 
 
 
