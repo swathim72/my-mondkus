@@ -340,54 +340,6 @@
 
   document.addEventListener("click", startMusic);
 
-// Full-on cute chaos: buttons dodge cursor AND each other
-const welcomeButtons = document.querySelectorAll('#welcomePage button');
-
-welcomeButtons.forEach(btn => {
-  btn.style.position = 'absolute'; // make them movable
-});
-
-// Initialize random starting positions
-welcomeButtons.forEach(btn => {
-  btn.style.left = Math.random() * (window.innerWidth - btn.offsetWidth) + 'px';
-  btn.style.top = Math.random() * (window.innerHeight - btn.offsetHeight) + 'px';
-});
-
-// Function to get distance between two buttons
-function distance(btn1, btn2) {
-  const x1 = btn1.offsetLeft + btn1.offsetWidth / 2;
-  const y1 = btn1.offsetTop + btn1.offsetHeight / 2;
-  const x2 = btn2.offsetLeft + btn2.offsetWidth / 2;
-  const y2 = btn2.offsetTop + btn2.offsetHeight / 2;
-  return Math.hypot(x2 - x1, y2 - y1);
-}
-
-// Move buttons randomly to dodge cursor
-welcomeButtons.forEach(btn => {
-  btn.addEventListener('mousemove', e => {
-    // Random shift away from cursor
-    let xOffset = (Math.random() - 0.5) * 200;
-    let yOffset = (Math.random() - 0.5) * 100;
-
-    let newX = Math.min(window.innerWidth - btn.offsetWidth, Math.max(0, btn.offsetLeft + xOffset));
-    let newY = Math.min(window.innerHeight - btn.offsetHeight, Math.max(0, btn.offsetTop + yOffset));
-
-    btn.style.left = newX + 'px';
-    btn.style.top = newY + 'px';
-
-    // Avoid each other
-    welcomeButtons.forEach(other => {
-      if (other !== btn && distance(btn, other) < 100) {
-        let repelX = (Math.random() - 0.5) * 100;
-        let repelY = (Math.random() - 0.5) * 50;
-        other.style.left = Math.min(window.innerWidth - other.offsetWidth, Math.max(0, other.offsetLeft + repelX)) + 'px';
-        other.style.top = Math.min(window.innerHeight - other.offsetHeight, Math.max(0, other.offsetTop + repelY)) + 'px';
-      }
-    });
-  });
-});
-
-
 
 </script>
 
