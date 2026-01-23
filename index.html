@@ -532,27 +532,49 @@ function openTerms() {
 
   document.body.appendChild(overlay);
 }
+/* Bunny trail that smoothly follows cursor */
+const trailBunnies = [];
+const bunnyImgs = ['bunny1.png', 'bunny2.png'];
+const NUM_TRAIL_BUNNIES = 5; // number of bunnies in the trail
 
-  // Bunny trail that follows cursor
-  document.addEventListener('mousemove', function(e){
-    const trailBunny = document.createElement('img');
-    const bunnyImgs = ['bunny1.png', 'bunny2.png'];
-    trailBunny.src = bunnyImgs[Math.floor(Math.random()*bunnyImgs.length)];
-    trailBunny.className = 'bunnyTrail';
-    trailBunny.style.left = e.pageX + 'px';
-    trailBunny.style.top = e.pageY + 'px';
-    trailBunny.style.width = 40 + Math.random()*20 + 'px';
-    document.body.appendChild(trailBunny);
+// create trail bunnies
+for (let i = 0; i < NUM_TRAIL_BUNNIES; i++) {
+  const b = document.createElement('img');
+  b.src = bunnyImgs[Math.floor(Math.random() * bunnyImgs.length)];
+  b.className = 'bunnyTrail';
+  b.style.left = '0px';
+  b.style.top = '0px';
+  document.body.appendChild(b);
+  trailBunnies.push({el: b, x: 0, y: 0});
+}
 
-    setTimeout(() => {
-      trailBunny.style.transition = 'opacity 0.8s';
-      trailBunny.style.opacity = 0;
-      setTimeout(() => trailBunny.remove(), 800);
-    }, 0);
+let mouseX = 0;
+let mouseY = 0;
+document.addEventListener('mousemove', e => {
+  mouseX = e.pageX;
+  mouseY = e.pageY;
+});
+
+function animateTrail() {
+  let x = mouseX;
+  let y = mouseY;
+  trailBunnies.forEach(bunny => {
+    bunny.x += (x - bunny.x) * 0.2; // smooth movement
+    bunny.y += (y - bunny.y) * 0.2;
+    bunny.el.style.transform = `translate(${bunny.x}px, ${bunny.y}px)`;
+    x = bunny.x; // next bunny targets this one
+    y = bunny.y;
   });
-
-
-
+  requestAnimationFrame(animateTrail);
+}
+animateTrail();
+.bunnyTrail {
+  position: absolute;
+  width: 40px;
+  pointer-events: none;
+  z-index: 10;
+  transition: transform 0.05s linear;
+}
 
 </script>
 
