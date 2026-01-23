@@ -217,6 +217,10 @@
   <div style="margin-top:30px;">
   <button onclick="bunnyChaos()">want more bunnies?</button>
   <button onclick="complimentRoulette()">if you haven't been rizzed up enough yet</button>
+    <br>
+<button onclick="fakeError()">do NOT press this</button>
+
+
 </div>
 
 <p id="complimentText" style="margin-top:20px; font-size:24px;"></p>
@@ -449,6 +453,39 @@ function complimentRoulette() {
     compliments[Math.floor(Math.random() * compliments.length)];
 }
 
+function fakeError() {
+  // screen shake
+  document.body.style.animation = "shake 0.4s";
+  setTimeout(() => document.body.style.animation = "", 400);
+
+  // overlay
+  const overlay = document.createElement("div");
+  overlay.style.position = "fixed";
+  overlay.style.inset = "0";
+  overlay.style.background = "rgba(0,0,0,0.85)";
+  overlay.style.color = "white";
+  overlay.style.display = "flex";
+  overlay.style.flexDirection = "column";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = "center";
+  overlay.style.zIndex = "9999";
+  overlay.innerHTML = `
+    <h2>⚠️ ERROR ⚠️</h2>
+    <p style="margin:20px;font-size:20px;">
+      you are too attractive to proceed(rizzler strikes again)
+    </p>
+    <button onclick="this.parentElement.remove()" style="
+      padding:12px 24px;
+      font-size:18px;
+      border-radius:10px;
+      border:none;
+      cursor:pointer;
+    ">
+      resume boyfriend duties
+    </button>
+  `;
+  document.body.appendChild(overlay);
+}
 
 
 
