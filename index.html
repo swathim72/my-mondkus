@@ -128,7 +128,7 @@
     }
 
     @keyframes confettiFall {
-      0% { transform: translateY(0) rotate(0deg); }
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
       100% { transform: translateY(800px) rotate(360deg); opacity: 0; }
     }
 
@@ -180,15 +180,25 @@
 <div id="calendar" class="calendar" style="display:none;"></div>
 
 <div id="hintPage" class="page">
-  <p>wrong date! hint: what's the date between the 13th and 15th? 😏</p>
+  <p>aww you're so cute ik you wanna see me every day but there's only one right answer for this</p>
+  <p>hint: what's the date between the 13th and 15th? 😏</p>
   <button onclick="resetCalendar()">try again</button>
 </div>
 
 <div id="valentineIntro" class="page">
-  <h2>nothing? so ur free on valentine's day...<br>i'm free on valentine's day...maybe we should hang out...</h2>
+  <h2>ur not doing anything? so ur free on valentine's day...<br>and i'm free on valentine's day...maybe we should hang out...</h2>
   <h3>or maybe idk you could be my valentine?</h3>
   <button id="introYes" class="yes" onclick="showLoveLetter()">duh ofc YES!!</button>
   <button id="introNo" class="no" onclick="makeYesBigger()">nah i hate you</button>
+  <button id="mysteryButton" class="no" onclick="showMysteryPage()">???</button>
+</div>
+
+<!-- MYSTERY PAGE -->
+<div id="mysteryPage" class="page">
+  <h2>OMGGG I HAVE THE BEST BF EVER HE'S SO SMART AND FUNNY AND HANDSOME AND HE LOVES ME AN-</h2>
+  <h2>😳</h2>
+  <h2>whoops you weren't supposed to see this...but since you're here...</h2>
+  <button onclick="backToValentineIntro()">go back to where you came from(not india noooo)</button>
 </div>
 
 <div id="loveLetterPage" class="page">
@@ -249,6 +259,17 @@
       (parseInt(getComputedStyle(introYes).fontSize) + 6) + "px";
   }
 
+  // MYSTERY PAGE FUNCTIONS
+  function showMysteryPage() {
+    valentineIntro.style.display = "none";
+    mysteryPage.style.display = "block";
+  }
+
+  function backToValentineIntro() {
+    mysteryPage.style.display = "none";
+    valentineIntro.style.display = "block";
+  }
+
   function spawnHearts() {
     const h = document.createElement("div");
     h.className = "floating";
@@ -306,14 +327,14 @@
 
   document.addEventListener("click", e => sparkle(e.pageX, e.pageY));
   // Start music on first user interaction (browser-safe)
-function startMusic() {
-  const music = document.getElementById("bgMusic");
-  music.volume = 0.3;
-  music.play().catch(() => {});
-  document.removeEventListener("click", startMusic);
-}
+  function startMusic() {
+    const music = document.getElementById("bgMusic");
+    music.volume = 0.3;
+    music.play().catch(() => {});
+    document.removeEventListener("click", startMusic);
+  }
 
-document.addEventListener("click", startMusic);
+  document.addEventListener("click", startMusic);
 
 </script>
 
