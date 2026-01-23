@@ -533,6 +533,25 @@ function openTerms() {
   document.body.appendChild(overlay);
 }
 
+  // Bunny trail that follows cursor
+  document.addEventListener('mousemove', function(e){
+    const trailBunny = document.createElement('img');
+    const bunnyImgs = ['bunny1.png', 'bunny2.png'];
+    trailBunny.src = bunnyImgs[Math.floor(Math.random()*bunnyImgs.length)];
+    trailBunny.className = 'bunnyTrail';
+    trailBunny.style.left = e.pageX + 'px';
+    trailBunny.style.top = e.pageY + 'px';
+    trailBunny.style.width = 40 + Math.random()*20 + 'px';
+    document.body.appendChild(trailBunny);
+
+    setTimeout(() => {
+      trailBunny.style.transition = 'opacity 0.8s';
+      trailBunny.style.opacity = 0;
+      setTimeout(() => trailBunny.remove(), 800);
+    }, 0);
+  });
+
+
 
 
 </script>
